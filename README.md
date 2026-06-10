@@ -1,48 +1,73 @@
-# FRR Multi-Subnet Routing Lab (OSPF & SSH Enabled)
+# FRR Multi-Subnet Routing Laboratory (Zero-Setup Deployment)
 
-This repository contains a pre-configured 2-router network laboratory using FRRouting (FRR) running over isolated Docker networks. OpenSSH is pre-installed on both routers for terminal access.
+This repository contains a fully automated, pre-configured 2-router network laboratory built using FRRouting (FRR) and OpenSSH. All software packages, SSH access controls, daemon configurations, and OSPF routing protocols are baked completely inside the standalone container images. 
 
-## Topology Map
-* **Router 1 Local Subnet:** 10.1.0.0/24 (Router IP: 10.1.0.11)
-* **Router 2 Local Subnet:** 10.2.0.0/24 (Router IP: 10.2.0.12)
-* **Transit Backbone Subnet:** 172.30.0.0/24 (R1: 172.30.0.11 | R2: 172.30.0.12)
+Students do not need to configure any text files or map local tracking volumes to launch the environment.
+
+## Network Topology Map
+* **Router 1 Local Production Subnet:** 10.1.0.0/24 (Router Interface: 10.1.0.11)
+* **Router 2 Local Production Subnet:** 10.2.0.0/24 (Router Interface: 10.2.0.12)
+* **Transit Backbone Interconnect Subnet:** 172.30.0.0/24 (R1 Link: 172.30.0.11 | R2 Link: 172.30.0.12)
 
 ---
 
-## Student Setup Instructions
+## Lab Deployment Instructions
 
-Follow these steps exactly to import and launch the lab environment on your machine. **Do not attempt to extract or unzip the downloaded `.tar` files.**
+Execute these commands sequentially inside your terminal window to deploy the complete, pre-synchronized routing infrastructure on your host machine.
 
-### 1. Clone this Repository
-Open a terminal on your computer and clone the tracking infrastructure:
+### 1. Initialize Your Workspace
+Create a fresh folder directory for your laboratory profile and switch into it:
 ```bash
-mkdir frr-lab
-Download the docker-compose.yml and the two tar.gz file's in the release pages
+mkdir frr-routing-lab && cd frr-routing-lab
 ```
 
-### 2. Download the Pre-Compiled Router Images and unzip
-Navigate to the **Releases** section on the right side of this GitHub page and download both master image files into your project directory:
-* `frr-lab-ready-r1.tar.gz`
-* `frr-lab-ready-r2.tar.gz`
-* 'gunzip frr-lab*'
-
-### 3. Load the Images into Docker
-Run the following commands in your terminal to register the master blueprints natively inside your local Docker engine:
+### 2. Fetch the Deployment Configuration
+Pull down the core multi-network definition layout file:
 ```bash
-docker load < frr-lab-ready-r1.tar
-docker load < frr-lab-ready-r2.tar
+curl -LO https://github.com
 ```
 
-### 4. Fire Up the Topology
-Launch the isolated container network space in detached background mode:
+### 3. Download the Standalone Master Images
+Download the pre-compiled standalone container snapshots directly from the laboratory release assets portal:
+```bash
+curl -LO https://github.com
+curl -LO https://github.com
+```
+*(Note: Do not attempt to extract, unzip, or untar these files using your file manager. Leave them intact as `.tar` files).*
+
+### 4. Register the Blueprints with Docker
+Import the snapshot blueprints straight into your local Docker system engine cache database:
+```bash
+docker load < frr-zero-setup-r1.tar
+docker load < frr-zero-setup-r2.tar
+```
+
+### 5. Launch the Virtual Topology
+Fire up the multi-subnet isolated framework in the background:
 ```bash
 docker compose up -d
 ```
 
-### 5. Accessing the Routers
-You can now securely shell into either routing container directly from your host machine terminal:
+---
+
+## Verifying and Accessing the Lab
+
+### 1. Confirm Active Execution States
+Run a quick process audit to ensure both network routing devices are successfully initialized and running:
+```bash
+docker ps
+```
+Both `frr-router1` and `frr-router2` must report an active status state of **`Up`**.
+
+### 2. Access the Routers Over SSH
+Both nodes host a live background OpenSSH daemon server. Connect directly from your host shell using the following default administrative credentials:
 * **Connect to Router 1:** `ssh root@172.30.0.11`
 * **Connect to Router 2:** `ssh root@172.30.0.12`
-* **Password:** `rootpassword`
+* **Universal Password:** `rootpassword`
 
-Once logged into the Linux prompt via SSH, type **`vtysh`** to access the live FRR dynamic routing configuration command line interface.
+### 3. Access the FRR Routing Core Shell
+Once inside a router's secure shell prompt, enter the native FRR interactive configuration console:
+```bash
+vtysh
+```
+From here, you can execute network diagnostic inspect strings such as `show ip route` or `show ip ospf neighbor` to analyze live routing state data.
