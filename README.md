@@ -24,14 +24,13 @@ mkdir frr-routing-lab && cd frr-routing-lab
 ### 2. Fetch the Deployment Configuration
 Pull down the core multi-network definition layout file:
 ```bash
-curl -LO https://github.com
+Head to the released page and downlaod the docker-compose.yml
 ```
 
 ### 3. Download the Standalone Master Images
 Download the pre-compiled standalone container snapshots directly from the laboratory release assets portal:
 ```bash
-curl -LO https://github.com
-curl -LO https://github.com
+Head to the releases page to downlaod the two .tar files
 ```
 *(Note: Do not attempt to extract, unzip, or untar these files using your file manager. Leave them intact as `.tar` files).*
 
