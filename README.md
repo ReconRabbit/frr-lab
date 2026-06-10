@@ -16,7 +16,7 @@ Follow these steps exactly to import and launch the lab environment on your mach
 ### 1. Clone this Repository
 Open a terminal on your computer and clone the tracking infrastructure:
 ```bash
-git clone https://github.com/ReconRabbit/frr-lab
+git clone https://github.com/ReconRabbit/frr-lab/releases/tag/v1.0.0
 cd frr-lab
 ```
 
